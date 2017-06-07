@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  
+  <head>
+  <meta charset="UTF-8">
+  <title>HelloWorld</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#157878">
+  <link rel="stylesheet" href="/css/normalize.css">
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="/css/cayman.css">
+</head>
+
+  <body>
+    <section class="page-header">
+  <h1 class="project-name">HelloWorld</h1>
+  <h2 class="project-tagline"></h2>
+  <a href="#" class="btn">View on GitHub</a>
+  <a href="#" class="btn">Download .zip</a>
+  <a href="#" class="btn">Download .tar.gz</a>
+</section>
+
+    <section class="main-content">
+      
+      <h2>Welcome to Hello World!</h2>
+<p class="meta">07 Jun 2017</p>
+
+<p>Here is a demo of code highlight for python:</p>
+
+<figure class="highlight"><pre><code class="language-python" data-lang="python"><span class="k">def</span> <span class="nf">cnn_model_fn</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">mode</span><span class="p">):</span>
+  <span class="s">"""Model function for CNN."""</span>
+  <span class="c"># Input Layer</span>
+  <span class="c"># Reshape X to 4-D tensor: [batch_size, width, height, channels]</span>
+  <span class="c"># MNIST images are 28x28 pixels, and have one color channel</span>
+  <span class="n">input_layer</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+
+  <span class="c"># Convolutional Layer #1</span>
+  <span class="c"># Computes 32 features using a 5x5 filter with ReLU activation.</span>
+  <span class="c"># Padding is added to preserve width and height.</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 28, 28, 1]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 28, 28, 32]</span>
+  <span class="n">conv1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span>
+      <span class="n">inputs</span><span class="o">=</span><span class="n">input_layer</span><span class="p">,</span>
+      <span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span>
+      <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+      <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span>
+      <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+
+  <span class="c"># Pooling Layer #1</span>
+  <span class="c"># First max pooling layer with a 2x2 filter and stride of 2</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 28, 28, 32]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 14, 14, 32]</span>
+  <span class="n">pool1</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">max_pooling2d</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">conv1</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+  <span class="c"># Convolutional Layer #2</span>
+  <span class="c"># Computes 64 features using a 5x5 filter.</span>
+  <span class="c"># Padding is added to preserve width and height.</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 14, 14, 32]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 14, 14, 64]</span>
+  <span class="n">conv2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">conv2d</span><span class="p">(</span>
+      <span class="n">inputs</span><span class="o">=</span><span class="n">pool1</span><span class="p">,</span>
+      <span class="n">filters</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span>
+      <span class="n">kernel_size</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+      <span class="n">padding</span><span class="o">=</span><span class="s">"same"</span><span class="p">,</span>
+      <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+
+  <span class="c"># Pooling Layer #2</span>
+  <span class="c"># Second max pooling layer with a 2x2 filter and stride of 2</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 14, 14, 64]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 7, 7, 64]</span>
+  <span class="n">pool2</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">max_pooling2d</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">conv2</span><span class="p">,</span> <span class="n">pool_size</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+  <span class="c"># Flatten tensor into a batch of vectors</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 7, 7, 64]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 7 * 7 * 64]</span>
+  <span class="n">pool2_flat</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">pool2</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">7</span> <span class="o">*</span> <span class="mi">64</span><span class="p">])</span>
+
+  <span class="c"># Dense Layer</span>
+  <span class="c"># Densely connected layer with 1024 neurons</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 7 * 7 * 64]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 1024]</span>
+  <span class="n">dense</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">pool2_flat</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="mi">1024</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">relu</span><span class="p">)</span>
+
+  <span class="c"># Add dropout operation; 0.6 probability that element will be kept</span>
+  <span class="n">dropout</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dropout</span><span class="p">(</span>
+      <span class="n">inputs</span><span class="o">=</span><span class="n">dense</span><span class="p">,</span> <span class="n">rate</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="n">mode</span> <span class="o">==</span> <span class="n">learn</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">)</span>
+
+  <span class="c"># Logits layer</span>
+  <span class="c"># Input Tensor Shape: [batch_size, 1024]</span>
+  <span class="c"># Output Tensor Shape: [batch_size, 10]</span>
+  <span class="n">logits</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">dense</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">dropout</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+  <span class="n">loss</span> <span class="o">=</span> <span class="bp">None</span>
+  <span class="n">train_op</span> <span class="o">=</span> <span class="bp">None</span>
+
+  <span class="c"># Calculate Loss (for both TRAIN and EVAL modes)</span>
+  <span class="k">if</span> <span class="n">mode</span> <span class="o">!=</span> <span class="n">learn</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">INFER</span><span class="p">:</span>
+    <span class="n">onehot_labels</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">indices</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">labels</span><span class="p">,</span> <span class="n">tf</span><span class="o">.</span><span class="n">int32</span><span class="p">),</span> <span class="n">depth</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">losses</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span>
+        <span class="n">onehot_labels</span><span class="o">=</span><span class="n">onehot_labels</span><span class="p">,</span> <span class="n">logits</span><span class="o">=</span><span class="n">logits</span><span class="p">)</span>
+
+  <span class="c"># Configure the Training Op (for TRAIN mode)</span>
+  <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="n">learn</span><span class="o">.</span><span class="n">ModeKeys</span><span class="o">.</span><span class="n">TRAIN</span><span class="p">:</span>
+    <span class="n">train_op</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">optimize_loss</span><span class="p">(</span>
+        <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span>
+        <span class="n">global_step</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">contrib</span><span class="o">.</span><span class="n">framework</span><span class="o">.</span><span class="n">get_global_step</span><span class="p">(),</span>
+        <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="s">"SGD"</span><span class="p">)</span>
+
+  <span class="c"># Generate Predictions</span>
+  <span class="n">predictions</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s">"classes"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span>
+          <span class="nb">input</span><span class="o">=</span><span class="n">logits</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+      <span class="s">"probabilities"</span><span class="p">:</span> <span class="n">tf</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span>
+          <span class="n">logits</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"softmax_tensor"</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c"># Return a ModelFnOps object</span>
+  <span class="k">return</span> <span class="n">model_fn_lib</span><span class="o">.</span><span class="n">ModelFnOps</span><span class="p">(</span>
+      <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span> <span class="n">predictions</span><span class="o">=</span><span class="n">predictions</span><span class="p">,</span> <span class="n">loss</span><span class="o">=</span><span class="n">loss</span><span class="p">,</span> <span class="n">train_op</span><span class="o">=</span><span class="n">train_op</span><span class="p">)</span></code></pre></figure>
+
+<p>Here is a image resource demo
+<img src="http://localhost:4000/assets/Snapshot.png" alt="My helpful screenshot" /></p>
+
+
+      <footer class="site-footer">
+  <span class="site-footer-owner"><a href="http://localhost:4000">HelloWorld</a> is maintained by <a href="https://github.com/keeperovswords">Jian Xi</a>.</span>
+  <span class="site-footer-credits">This page was generated by <a href="https://pages.github.com">GitHub Pages</a>.</span>
+</footer>
+
+
+    </section>
+
+  </body>
+</html>
