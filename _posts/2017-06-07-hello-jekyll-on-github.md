@@ -103,4 +103,4 @@ def cnn_model_fn(features, labels, mode):
 
 
  Here is a image resource demo
-![My helpful screenshot]({{ site.url }}/assets/Snapshot.png)
+![My helpful screenshot]({{ site.github.url }}/assets/Snapshot.png)
